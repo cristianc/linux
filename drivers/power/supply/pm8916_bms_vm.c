@@ -247,8 +247,10 @@ static int pm8916_bms_vm_battery_probe(struct platform_device *pdev)
 
 	irq = platform_get_irq(pdev, 0);
 	if (irq > 0) {
+		// FIXME: HACK: IRQF_NO_SUSPEND is there for handler to be able to do
+		//  it's math in s2idle suspend.
 		ret = devm_request_irq(dev, irq, pm8916_bms_vm_fifo_update_done_irq,
-				       0, "pm8916_vm_bms", bat);
+				       IRQF_NO_SUSPEND, "pm8916_vm_bms", bat);
 		if (ret)
 			return ret;
 	} else {
