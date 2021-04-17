@@ -186,6 +186,10 @@
 	monitored-battery = <&bat>;
 };
 
+&pm8916_vib {
+	status = "okay";
+};
+
 &pronto {
 	status = "okay";
 };
