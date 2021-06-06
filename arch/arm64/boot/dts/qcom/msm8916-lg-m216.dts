@@ -84,6 +84,30 @@
 			linux,code = <KEY_VOLUMEDOWN>;
 		};
 	};
+
+	reg_lcd_pos: regulator-lcd-pos {
+		compatible = "regulator-fixed";
+		regulator-name = "lcd-pos";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpio = <&msmgpio 110 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		pinctrl-names = "default";
+		pinctrl-0 = <&lcd_p_en_default>;
+	};
+
+	reg_lcd_neg: regulator-lcd-neg {
+		compatible = "regulator-fixed";
+		regulator-name = "lcd-neg";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpio = <&msmgpio 97 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		pinctrl-names = "default";
+		pinctrl-0 = <&lcd_n_en_default>;
+	};
+
+
 };
 
 &blsp_i2c2 {
@@ -149,7 +173,8 @@
 		compatible = "lgd,incell-m2db7400";
 		reg = <0>;
 
-		power-supply = <&pm8916_l16>;
+		lcd-pos-supply = <&reg_lcd_pos>;
+		lcd-neg-supply = <&reg_lcd_neg>;
 		reset-gpios = <&msmgpio 25 GPIO_ACTIVE_LOW>;
 
 		port {
@@ -385,6 +410,22 @@
 
 		drive-strength = <2>;
 		bias-pull-up;
+	};
+
+	lcd_p_en_default: lcd-p-en-default {
+		pins = "gpio110";
+		function = "gpio";
+
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	lcd_n_en_default: lcd-n-en-default {
+		pins = "gpio97";
+		function = "gpio";
+
+		drive-strength = <2>;
+		bias-disable;
 	};
 
 	magn_int_default: magn-int-default {
