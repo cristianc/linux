@@ -41,6 +41,8 @@
 				 <&gcc GCC_MDSS_BYTE0_CLK>,
 				 <&gcc GCC_MDSS_PCLK0_CLK>,
 				 <&gcc GCC_MDSS_ESC0_CLK>;
+
+			status = "disabled";
 		};
 	};
 
