@@ -18,6 +18,15 @@
 	qcom,msm-id = <293 0>;
 	qcom,board-id = <0x340008 0>;
 
+	battery: battery {
+		compatible = "simple-battery";
+
+		charge-full-design-microamp-hours = <3500000>;
+		constant-charge-current-max-microamp = <1000000>;
+		voltage-min-design-microvolt = <3400000>;
+		voltage-max-design-microvolt = <4400000>;
+	};
+
 	chosen {
 		#address-cells = <2>;
 		#size-cells = <2>;
@@ -174,12 +183,23 @@
 	status = "okay";
 };
 
+&pmi8950_fg {
+	monitored-battery = <&battery>;
+	power-supplies = <&pmi8950_smbcharger>;
+	status = "okay";
+};
+
 &pmi8950_haptics {
 	qcom,actuator-type = <HAP_TYPE_ERM>;
 	qcom,brake-pattern = <0x3 0x3 0x0 0x0>;
 	qcom,wave-play-rate-us = <5263>;
 	qcom,wave-shape = <HAP_WAVE_SQUARE>;
 
+	status = "okay";
+};
+
+&pmi8950_smbcharger {
+	monitored-battery = <&battery>;
 	status = "okay";
 };
 
