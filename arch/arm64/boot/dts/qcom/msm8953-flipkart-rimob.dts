@@ -7,6 +7,7 @@
 #include "msm8953.dtsi"
 #include "pm8953.dtsi"
 #include "pmi8950.dtsi"
+#include "pmi8950-usb-type-b.dtsi"
 
 /delete-node/ &cont_splash_mem;
 /delete-node/ &qseecom_mem;
@@ -388,6 +389,7 @@
 };
 
 &usb3 {
+	usb-psy-name = "qcom-smbchg-usb";
 	status = "okay";
 };
 
